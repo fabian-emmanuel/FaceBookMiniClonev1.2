@@ -100,15 +100,14 @@
                 <div class="view create-post">
 
                     <!--Post Form Section-->
-                    <form>
+                    <form th:action="@{/post}" th:object="${post}" method="post">
                     <div class="input">
                         <div class="user">
                             <div class="profile">
                                 <img th:src="@{/css/img/avatar/hero.png}" alt="">
                             </div>
                         </div>
-                            <input type="text" placeholder="What's on your mind, Anne?">
-
+                            <input type="text" placeholder="Share your thought!" th:field="*{postMessage}">
                         <div class="post">
                         <input type="submit" value="Post">
                         </div>
@@ -143,7 +142,7 @@
                 </div>
 
                 <!--post container-->
-                <div class="view view-post-container smaller-margin">
+                <div class="view view-post-container smaller-margin" th:each="post : ${allPost}">
                     <div class="view-post">
                         <div class="upper">
                             <div class="d-flex">
@@ -154,17 +153,16 @@
                                 </div>
 
                                 <div class="info">
-                                    <h6 class="name">
-                                        diana barry
+                                    <h6 class="name" th:text="${post.user.firstName +' '+ post.user.lastName}">
                                     </h6>
-                                    <span class="time">1 hour ago</span>
+                                    <span class="time" th:datetime="${#dates}">1 hour ago</span>
                                 </div>
                             </div>
 
                         </div>
 
                         <div class="desc">
-                            <p>Travelling to the future 🌟 , it's already 2022 🙋‍♂🌈🌴</p>
+                            <p th:text="*{post.postMessage}"></p>
                         </div>
 
                         <div class="view create-post options">
@@ -174,7 +172,9 @@
                             <div class="input">
                                 <input type="submit"  class="like" value="Like" >
                                 <input type="submit" class="edit" value="Edit">
+                                <form method="post" th:action="@{/delete}" th:object="${post}">
                                 <input type="submit" class="delete" value="Delete">
+                                </form>
                             </div>
                         </div>
 

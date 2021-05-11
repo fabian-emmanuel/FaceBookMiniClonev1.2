@@ -1,6 +1,8 @@
 package com.codewithfibbee.facebookminiclone_v_1_2.controllers;
 
+import com.codewithfibbee.facebookminiclone_v_1_2.models.Post;
 import com.codewithfibbee.facebookminiclone_v_1_2.models.User;
+import com.codewithfibbee.facebookminiclone_v_1_2.services.PostService;
 import com.codewithfibbee.facebookminiclone_v_1_2.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +17,8 @@ public class UserLoginController {
 
     @Autowired
     UserService userService;
+    @Autowired
+    PostService postService;
 
 
     @GetMapping("/login")
@@ -27,22 +31,27 @@ public class UserLoginController {
     //Log in
 
     @PostMapping("/login")
-    public String login(User user, Model model){
-            User newUser = userService.getUserByEmail(user.getEmail());
+    public String login(User user, Model model, HttpSession httpSession){
+        User newUser = userService.getUserByEmail(user.getEmail());
         if (newUser == null ){
             model.addAttribute("invalidEmail", "Email does not exist");
-            return "redirect:/login";
+            return "signUpAndLogin";
         }
         newUser = userService.getuserByEmailAndPassWord(user.getEmail(), user.getPassword());
         if(newUser == null ){
             model.addAttribute("badPassword", "Incorrect password");
-            return "redirect:/login";
+            return "signUpAndLogin";
         }
+        httpSession.setAttribute("user", newUser);
         return "redirect:/homepage";
     }
 
     @GetMapping("/homepage")
-    public String homePage(){
+    public String homePage(HttpSession httpSession, Model model){
+        User user = (User) httpSession.getAttribute("user");
+        model.addAttribute("post", new Post());
+        model.addAttribute("allPost", postService.getAllPost());
+        model.addAttribute("user", user);
         return "profile";
     }
 
