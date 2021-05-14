@@ -100,16 +100,16 @@
                 <div class="view create-post">
 
                     <!--Post Form Section-->
-                    <form th:action="@{/post}" th:object="${post}" method="post">
+                    <form method="post" th:object="${thisPost}" th:action="@{/update/{id}(id=${thisPost.getId()})}">
                     <div class="input">
                         <div class="user">
                             <div class="profile">
                                 <img th:src="@{/css/img/avatar/hero.png}" alt="">
                             </div>
                         </div>
-                            <input type="text" placeholder="Share your thought!" th:field="*{postMessage}">
+                        <input type="text" th:field="*{postMessage}">
                         <div class="post">
-                        <input type="submit" value="Post">
+                        <input type="submit" value="Update">
                         </div>
                     </div>
                     </form>
@@ -141,84 +141,7 @@
                     </div>
                 </div>
 
-                <!--post container-->
-                <div class="view view-post-container smaller-margin" th:each="post : ${allPost}">
-                    <div class="view-post">
-                        <div class="upper">
-                            <div class="d-flex">
-                                <div class="user">
-                                    <div class="profile">
-                                        <img th:src="@{/css/img/avatar/5.jpg}" alt="">
-                                    </div>
-                                </div>
-
-                                <div class="info">
-                                    <h6 class="name" th:text="${post.user.firstName +' '+ post.user.lastName}">
-                                    </h6>
-                                    <span class="time" th:datetime="${#dates}">1 hour ago</span>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="desc">
-                            <p th:text="*{post.postMessage}"></p>
-                        </div>
-
-                        <div class="view create-post options">
-                            <div>
-                                10 likes
-                            </div>
-                            <div class="input">
-                                <input type="submit"  class="like" value="Like" >
-                                <input type="submit" class="edit" value="Edit">
-                                <form method="post" th:action="@{/delete}" th:object="${post}">
-                                <input type="submit" class="delete" value="Delete">
-                                </form>
-                            </div>
-                        </div>
-
-
-                            <!--Create Comment-->
-                        <div class="view create-post options">
-                            <div class="input">
-                                <input type="text" placeholder="Write a Comment">
-                                <div class="post">
-                                    <input type="submit" value="Send">
-                                </div>
-                            </div>
-
-                            <!--Comment Display-->
-                            <div class="view-post comment options">
-                                <div class="upper">
-                                    <div class="d-flex">
-
-                                        <div class="info">
-                                            <h6 class="name">
-                                                diana barry
-                                            </h6>
-                                            <span class="time">1 hour ago</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="desc">
-                                    <p>Travellimg to the future 🌟 , it's alraedy 2020 🙋‍♂🌈🌴</p>
-                                </div>
-                                <div class="view create-post options">
-                                    <div>
-                                        10 likes
-                                    </div>
-                                    <div class="input">
-                                        <input type="submit"  class="like" value="Like" >
-                                        <input type="submit" class="edit" value="Edit">
-                                        <input type="submit" class="delete" value="Delete">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
             </div>
         </div>
 

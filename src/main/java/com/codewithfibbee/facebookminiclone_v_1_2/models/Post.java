@@ -1,17 +1,17 @@
 package com.codewithfibbee.facebookminiclone_v_1_2.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Data
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
 public class Post {
 
     @Id
@@ -24,9 +24,9 @@ public class Post {
     @ManyToOne
     private User user;
 
-    @OneToMany
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<LikesForPost> likesForPost = new ArrayList<>();
 
-    @ManyToOne
-    private Comment comment;
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> comments;
 }

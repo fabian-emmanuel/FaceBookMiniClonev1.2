@@ -21,7 +21,7 @@
 
 <div class="card">
 	<div class="card-body">
-		<form th:action="@{/login}" method="POST" th:object="${user}">
+		<form th:action="@{/}" method="POST" th:object="${user}">
 			<div class="form-group">
 				<label for="exampleInputEmail1"></label>
 				<input name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" th:field="*{email}" placeholder="Email">
@@ -87,23 +87,23 @@
 					<!-- Grid row -->
 					<label class="dob"> Date Of Birth</label>
 					<div class="form-row">
-						<label for="namebox"></label><input type="date" id="namebox"  th:field="*{dateOfBirth}">
+						<label for="namebox"></label><input type="date" id="namebox"  th:field="*{dateOfBirth}" required>
 					</div>
 
 					<label class="gender">Gender</label>
 					<div class="form-row">
 						<!-- Grid row -->
 						<div id="gender">
-							<span class="_5k_3" data-type="radio" data-name="gender" ></span>
+							<span class="_5k_3" data-type="radio" data-name="gender"></span>
 
 							<span class="_5k_2 _5dba"><label class="_58mt">Male</label>
-                                <label><input type="radio" class="_8esa" th:field="*{gender}" value="Male"></label>
+                                <label><input type="radio" class="_8esa" th:field="*{gender}" value="Male" required></label>
                             </span>
 
 							<span class="_5k_3" data-type="radio" data-name="gender"></span>
 
 							<span class="_5k_2 _5dba"><label class="_58mt">Female</label>
-                                <label><input type="radio" class="_8esa" th:field="*{gender}" value="Female"></label>
+                                <label><input type="radio" class="_8esa" th:field="*{gender}" value="Female" required></label>
                             </span><br>
 
 							<span id="terms">By clicking Sign Up, you agree to our Terms, Data Policy and Cookie Policy.

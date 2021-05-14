@@ -1,5 +1,6 @@
 package com.codewithfibbee.facebookminiclone_v_1_2.controllers;
 
+import com.codewithfibbee.facebookminiclone_v_1_2.models.Comment;
 import com.codewithfibbee.facebookminiclone_v_1_2.models.Post;
 import com.codewithfibbee.facebookminiclone_v_1_2.models.User;
 import com.codewithfibbee.facebookminiclone_v_1_2.services.PostService;
@@ -21,7 +22,7 @@ public class UserLoginController {
     PostService postService;
 
 
-    @GetMapping("/login")
+    @GetMapping("/")
     public String loginPage(Model model){
         model.addAttribute("user", new User());
         model.addAttribute("invalidEmail", null);
@@ -30,7 +31,7 @@ public class UserLoginController {
 
     //Log in
 
-    @PostMapping("/login")
+    @PostMapping("/")
     public String login(User user, Model model, HttpSession httpSession){
         User newUser = userService.getUserByEmail(user.getEmail());
         if (newUser == null ){
@@ -43,17 +44,9 @@ public class UserLoginController {
             return "signUpAndLogin";
         }
         httpSession.setAttribute("user", newUser);
-        return "redirect:/homepage";
+        return "redirect:/home";
     }
 
-    @GetMapping("/homepage")
-    public String homePage(HttpSession httpSession, Model model){
-        User user = (User) httpSession.getAttribute("user");
-        model.addAttribute("post", new Post());
-        model.addAttribute("allPost", postService.getAllPost());
-        model.addAttribute("user", user);
-        return "profile";
-    }
 
     //Log Out
     @GetMapping("/logout")
@@ -63,7 +56,7 @@ public class UserLoginController {
         }
         model.addAttribute("user", new User());
         model.addAttribute("invalidEmail", null);
-        return "redirect:/login";
+        return "redirect:/";
     }
 }
 

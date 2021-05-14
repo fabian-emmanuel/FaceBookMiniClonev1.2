@@ -15,7 +15,7 @@ import java.util.List;
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long Id;
+    private Long id;
 
     @ManyToOne
     private User user;
@@ -23,7 +23,7 @@ public class Comment {
     @ManyToOne
     private Post post;
 
-    @OneToMany
+    @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<LikesForComment> likesForComment = new ArrayList<>();
 
     @Column(nullable = false)

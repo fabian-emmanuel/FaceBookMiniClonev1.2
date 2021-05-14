@@ -34,6 +34,14 @@ public class PostServiceImplementation implements PostService {
     @Override
     public void deletePost(Post post) {
         postRepository.delete(post);
+        System.err.println("Performed");
+    }
+
+    @Override
+    public void updatePost(Post post, long id) {
+        Post oldPost = postRepository.findPostById(id);
+        oldPost.setPostMessage(post.getPostMessage());
+        postRepository.save(oldPost);
     }
 
 }
