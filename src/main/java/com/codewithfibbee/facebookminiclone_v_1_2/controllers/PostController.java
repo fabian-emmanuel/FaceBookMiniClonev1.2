@@ -82,7 +82,8 @@ public class PostController {
         if (user == null) return "home";
         like.setUser(user);
         like.setPost(postService.getPostById(id));
-        if (likesForPostService.getLikes(like) != null) likesForPostService.deleteLike(like);
+        LikesForPost liked = likesForPostService.getLikes(like);
+        if (likesForPostService.getLikes(like) != null) likesForPostService.deleteLike(liked);
         else likesForPostService.addLike(like);
         return "redirect:/home";
     }

@@ -71,7 +71,8 @@ public class CommentController {
         if (user == null) return "home";
         like.setUser(user);
         like.setComment(commentService.getCommentById(id));
-        if(likeForCommentService.getLikes(like) != null) likeForCommentService.deleteLike(like);
+        LikesForComment liked = likeForCommentService.getLikes(like);
+        if(likeForCommentService.getLikes(like) != null) likeForCommentService.deleteLike(liked);
         else likeForCommentService.addLike(like);
         return "redirect:/home";
 
